@@ -4,7 +4,12 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  // Serving pages goes through the pooler: every request opens a connection and
+  // serverless scales out, so a direct URL would exhaust the server's limit.
   url      = env("DATABASE_URL")
+  // Migrations need a real session, which a transaction pooler cannot give them,
+  // so they take the direct connection instead.
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model Team {
