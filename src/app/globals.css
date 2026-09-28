@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+/*
+  Three selected themes: blue (default) → black → white, cycled by the pull cord.
+  Each is its own set of steps chosen against its own surface, not an inversion
+  of another.
+
+  Chart colours are validated (dataviz validator) in BOTH modes, one fixed slot
+  order — the order is the colourblind-safety mechanism, so it never changes:
+    violet → pink → blue → amber → teal
+    light on #ffffff : worst adjacent CVD ΔE 12.5 · normal-vision 24.3 · all ≥3:1
+    dark  on #12121a : worst adjacent CVD ΔE 12.5 · normal-vision 24.3 · all ≥3:1
+    blue  on #0d2557 : same slots, every one re-checked ≥3:1 (lowest 3.22)
+*/
+
+@theme {
+  --color-ink-950: var(--c-bg);
+  --color-ink-900: var(--c-surface);
+  --color-ink-800: var(--c-line);
+  --color-ink-700: var(--c-line-strong);
+  --color-ink-600: var(--c-faint);
+  --color-ink-50: var(--c-text);
+
+  --color-haze-400: var(--c-muted);
+  --color-haze-300: var(--c-secondary);
+
+  --color-violet-glow: var(--c-accent);
+  /* A solid accent fill is a different job from accent-coloured text: it has to
+     carry white on top of it, which pulls the hue darker. */
+  --color-accent-solid: var(--c-accent-solid);
+  --color-accent-ink: var(--c-accent-ink);
+  --color-mint: var(--c-good);
+  --color-ember: var(--c-bad);
+  --color-amber-soft: var(--c-caution);
+}
+
+
+/* Blue — the default. Deep navy so the data still reads as data. */
+:root,
+:root[data-theme="blue"] {
+  color-scheme: dark;
+
+  --c-bg: #07173f;
+  --c-surface: #0d2557;
+  --c-line: #16346f;
+  --c-line-strong: #1d4183;
+  --c-faint: #2a539c;
+  --c-text: #ffffff; /* 14.80:1 */
+  --c-secondary: #b9c8e8; /* 8.80:1 */
+  --c-muted: #9db3da; /* 6.97:1 */
+
+  --c-accent: #8b7bff; /* 4.49:1 as text on the surface */
+  --c-accent-solid: #7350f5; /* white on it: 5.01:1 */
+  --c-accent-ink: #ffffff;
+  --c-good: #4ade80; /* 8.49:1 */
+  --c-bad: #ff9066; /* 6.65:1 */
+  --c-caution: #fcd34d; /* 10.26:1 */
+
+  --chart-surface: #0d2557;
+  --chart-grid: #1d4183;
+  --chart-axis: #2a539c;
+  --chart-ink-muted: #9db3da;
+  --chart-ink-secondary: #b9c8e8;
+
+  --chart-1: #7c5cff;
+  --chart-2: #db2777;
+  --chart-3: #0284c7;
+  --chart-4: #d97706;
+  --chart-5: #0d9488;
+  --chart-other: #6f86b8;
+  --chart-1-deep: #4c3a9e;
+  --chart-critical: #f87171; /* 5.35:1 */
+}
+
+/* Black. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --c-bg: #0a0a0f;
+  --c-surface: #12121a;
+  --c-line: #1a1a24;
+  --c-line-strong: #24242f;
+  --c-faint: #32323f;
+  --c-text: #ffffff;
+  --c-secondary: #b8b8c6;
+  --c-muted: #9c9cac;
+
+  --c-accent: #7c5cff;
+  --c-accent-solid: #7350f5; /* white on it: 5.01:1 */
+  --c-accent-ink: #ffffff;
+  --c-good: #34d399; /* 9.69:1 */
+  --c-bad: #ff7a45; /* 7.21:1 */
+  --c-caution: #fbbf24; /* 11.16:1 */
+
+  /* Chart chrome */
+  --chart-surface: #12121a;
+  --chart-grid: #24242f;
+  --chart-axis: #32323f;
+  --chart-ink-muted: #9c9cac;
+  --chart-ink-secondary: #b8b8c6;
+
+  /* Categorical slots, fixed order */
+  --chart-1: #7c5cff;
+  --chart-2: #db2777;
+  --chart-3: #0284c7;
+  --chart-4: #d97706;
+  --chart-5: #0d9488;
+  --chart-other: #64748b; /* the "Other" bucket, deliberately neutral */
+  --chart-1-deep: #4c3a9e; /* second shade for before→after marks */
+  --chart-critical: #d03b3b; /* reserved status, never a series */
+}
+
+/* Light — separately selected steps, each checked against #ffffff. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --c-bg: #f5f5f8;
+  --c-surface: #ffffff;
+  --c-line: #e6e6ee;
+  --c-line-strong: #d5d5e0;
+  --c-faint: #a8a8b8;
+  --c-text: #101018; /* 18.93:1 */
+  --c-secondary: #43434f; /* 9.75:1 */
+  --c-muted: #6a6a7a; /* 5.31:1 on card, 4.88:1 on page */
+
+  --c-accent: #6d43f5; /* 5.57:1 */
+  --c-accent-solid: #6d43f5; /* white on it: 5.57:1 */
+  --c-accent-ink: #ffffff;
+  --c-good: #047857; /* 5.48:1 */
+  --c-bad: #c2410c; /* 5.18:1 */
+  --c-caution: #b45309; /* 5.02:1 */
+
+  --chart-surface: #ffffff;
+  --chart-grid: #e6e6ee;
+  --chart-axis: #c9c9d6;
+  --chart-ink-muted: #6a6a7a;
+  --chart-ink-secondary: #43434f;
+
+  --chart-1: #7c5cff;
+  --chart-2: #db2777;
+  --chart-3: #0284c7;
+  --chart-4: #d97706;
+  --chart-5: #0d9488;
+  --chart-other: #64748b;
+  --chart-1-deep: #3f2f86;
+  --chart-critical: #b91c1c; /* 6.47:1 */
+}
+
+body {
+  background-color: var(--c-bg);
+}
+
+/* The card face: soft overlapping colour fields, closer to a pressed foil card
+   than a flat linear ramp. Each team gets one hue set. */
+.card-face {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.card-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--mesh);
+  z-index: -1;
+}
+
+/* The mascot ships as white line art on transparency. It is monochrome, so one
+   asset serves both themes — inverted to ink when the lights are on. */
+.logo-mark {
+  filter: drop-shadow(0 1px 2px rgb(0 0 0 / 0.35));
+}
+:root[data-theme="light"] .logo-mark {
+  filter: invert(1) drop-shadow(0 1px 1px rgb(0 0 0 / 0.12));
+}
+
+/* The pull cord. Motion is user-triggered only. The cord stretches while the
+   bead travels the same distance, so it reads as string being drawn out rather
+   than the whole thing sliding down. */
+/* Two different curves, because a chain does two different things. The draw
+   down is a deliberate ease-out; the release springs back past the resting
+   point and settles, which is where the "pull" actually reads. */
+.cord-line,
+.cord-bead {
+  transition: transform 430ms cubic-bezier(0.34, 1.5, 0.64, 1);
+}
+.cord-line {
+  transform-origin: top center;
+}
+[data-pulling="true"] .cord-line,
+[data-pulling="true"] .cord-bead {
+  transition-duration: 230ms;
+  transition-timing-function: cubic-bezier(0.33, 0, 0.2, 1);
+}
+/* The 64px cord stretches by the same 30px the bead drops, so they stay joined. */
+[data-pulling="true"] .cord-line {
+  transform: scaleY(1.47);
+}
+[data-pulling="true"] .cord-bead {
+  transform: translateY(30px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .cord-line,
+  .cord-bead {
+    transition: none;
+  }
+  [data-pulling="true"] .cord-line,
+  [data-pulling="true"] .cord-bead {
+    transform: none;
+  }
+}

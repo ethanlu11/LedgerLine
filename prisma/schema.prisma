@@ -1,0 +1,111 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Team {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  people   Person[]
+  accounts Account[]
+  charges  Charge[]
+  rules    AssignmentRule[]
+}
+
+// Status is derived: Active when departureDate is null, otherwise Departed.
+model Person {
+  id            Int            @id @default(autoincrement())
+  name          String
+  role          String
+  teamId        Int
+  startDate     DateTime
+  departureDate DateTime?
+  photoUrl      String? // path under /public, e.g. /avatars/priya-raman.svg
+  team          Team           @relation(fields: [teamId], references: [id])
+  accounts      Account[]
+  cards         Card[]
+  subscriptions Subscription[]
+  charges       Charge[]
+  rules         AssignmentRule[]
+}
+
+model Account {
+  id       Int     @id @default(autoincrement())
+  name     String
+  type     String // "company" | "team" | "person"
+  teamId   Int?
+  personId Int?
+  team     Team?   @relation(fields: [teamId], references: [id])
+  person   Person? @relation(fields: [personId], references: [id])
+  cards    Card[]
+}
+
+// personId is null for a team card: one shared card per team, held by the team itself.
+model Card {
+  id            Int            @id @default(autoincrement())
+  personId      Int?
+  accountId     Int
+  last4         String
+  network       String? // "visa" | "mastercard"; nullable so it can be added in place
+  product       String? // the card product, e.g. "cash" | "travel" — drives the card art
+  person        Person?        @relation(fields: [personId], references: [id])
+  account       Account        @relation(fields: [accountId], references: [id])
+  subscriptions Subscription[]
+  charges       Charge[]
+  rules         AssignmentRule[]
+}
+
+model Subscription {
+  id       Int      @id @default(autoincrement())
+  personId Int
+  vendor   String
+  cardId   Int
+  category String
+  person   Person   @relation(fields: [personId], references: [id])
+  card     Card     @relation(fields: [cardId], references: [id])
+  charges  Charge[]
+}
+
+// amountCents is an integer so sums are exact. subscriptionId is null for one-off spend.
+//
+// Ownership: a charge belongs to a person, or to a team, or to neither. Neither
+// means it landed on a shared card and nobody knows whose it is yet — that is
+// the Review queue.
+model Charge {
+  id             Int           @id @default(autoincrement())
+  subscriptionId Int?
+  personId       Int?
+  teamId         Int?
+  cardId         Int
+  vendor         String
+  category       String
+  amountCents    Int
+  date           DateTime
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  person         Person?       @relation(fields: [personId], references: [id])
+  team           Team?         @relation(fields: [teamId], references: [id])
+  card           Card          @relation(fields: [cardId], references: [id])
+
+  @@index([personId, date])
+  @@index([teamId, date])
+  @@index([subscriptionId, date])
+}
+
+/// "Always do this": future charges from this vendor on this card get the same owner.
+model AssignmentRule {
+  id        Int      @id @default(autoincrement())
+  vendor    String
+  cardId    Int
+  personId  Int?
+  teamId    Int?
+  createdAt DateTime @default(now())
+  card      Card     @relation(fields: [cardId], references: [id])
+  person    Person?  @relation(fields: [personId], references: [id])
+  team      Team?    @relation(fields: [teamId], references: [id])
+
+  @@unique([vendor, cardId])
+}
