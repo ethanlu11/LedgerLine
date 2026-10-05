@@ -4,6 +4,7 @@ next-env.d.ts
 *.tsbuildinfo
 .env
 .env*.local
+!.env.example
 .postgres
 .vercel
-.env*
+.neon-connection
