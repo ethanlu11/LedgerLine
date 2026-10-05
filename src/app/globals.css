@@ -33,43 +33,45 @@
 }
 
 
-/* Black — the default. */
+/* Dark — the default. Near-black with a blue cast, electric blue for action,
+   lime for anything positive or filling up. Every value checked against the
+   surface it sits on; lowest is the accent at 5.85:1. */
 :root,
 :root[data-theme="dark"] {
   color-scheme: dark;
 
-  --c-bg: #0a0a0f;
-  --c-surface: #12121a;
-  --c-line: #1a1a24;
-  --c-line-strong: #24242f;
-  --c-faint: #32323f;
-  --c-text: #ffffff;
-  --c-secondary: #b8b8c6;
-  --c-muted: #9c9cac;
+  --c-bg: #070b14;
+  --c-surface: #111a2c;
+  --c-line: #1b2740;
+  --c-line-strong: #27354f;
+  --c-faint: #3a4a68;
+  --c-text: #ffffff; /* 17.38:1 */
+  --c-secondary: #b7c3d9; /* 9.79:1 */
+  --c-muted: #8d9ab4; /* 6.14:1 */
 
-  --c-accent: #7c5cff;
-  --c-accent-solid: #7350f5; /* white on it: 5.01:1 */
+  --c-accent: #5c93ff; /* 5.85:1 as text/icon on the surface */
+  --c-accent-solid: #2563eb; /* white on it: 5.17:1 */
   --c-accent-ink: #ffffff;
-  --c-good: #34d399; /* 9.69:1 */
-  --c-bad: #ff7a45; /* 7.21:1 */
-  --c-caution: #fbbf24; /* 11.16:1 */
+  --c-good: #c3f53c; /* lime, 13.62:1 */
+  --c-bad: #ff8566; /* 7.28:1 */
+  --c-caution: #ffc44d; /* 10.97:1 */
 
   /* Chart chrome */
-  --chart-surface: #12121a;
-  --chart-grid: #24242f;
-  --chart-axis: #32323f;
-  --chart-ink-muted: #9c9cac;
-  --chart-ink-secondary: #b8b8c6;
+  --chart-surface: #111a2c;
+  --chart-grid: #27354f;
+  --chart-axis: #3a4a68;
+  --chart-ink-muted: #8d9ab4;
+  --chart-ink-secondary: #b7c3d9;
 
-  /* Categorical slots, fixed order */
+  /* Categorical slots keep the colourblind-validated order. */
   --chart-1: #7c5cff;
   --chart-2: #db2777;
   --chart-3: #0284c7;
   --chart-4: #d97706;
   --chart-5: #0d9488;
-  --chart-other: #64748b; /* the "Other" bucket, deliberately neutral */
-  --chart-1-deep: #4c3a9e; /* second shade for before→after marks */
-  --chart-critical: #d03b3b; /* reserved status, never a series */
+  --chart-other: #64748b;
+  --chart-1-deep: #4c3a9e;
+  --chart-critical: #ff6b6b;
 }
 
 /* Light — separately selected steps, each checked against #ffffff. */
@@ -85,8 +87,8 @@
   --c-secondary: #43434f; /* 9.75:1 */
   --c-muted: #6a6a7a; /* 5.31:1 on card, 4.88:1 on page */
 
-  --c-accent: #6d43f5; /* 5.57:1 */
-  --c-accent-solid: #6d43f5; /* white on it: 5.57:1 */
+  --c-accent: #1d4fd8; /* 7.01:1 */
+  --c-accent-solid: #1f55d0; /* white on it: 6.43:1 */
   --c-accent-ink: #ffffff;
   --c-good: #047857; /* 5.48:1 */
   --c-bad: #c2410c; /* 5.18:1 */

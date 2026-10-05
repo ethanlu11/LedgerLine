@@ -103,7 +103,7 @@ export function StatTile({
           <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-ink-700">
             <span
               className="block h-full rounded-full"
-              style={{ width: `${Math.max(pct, 2)}%`, backgroundColor: bar.color ?? "var(--chart-1)" }}
+              style={{ width: `${Math.max(pct, 2)}%`, backgroundColor: bar.color ?? "var(--c-good)" }}
             />
           </span>
         </div>
