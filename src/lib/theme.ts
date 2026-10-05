@@ -6,17 +6,15 @@
  */
 export const THEME_KEY = "ledgerline-theme";
 
-/** The pull cord walks this list in order and wraps around. */
-export const THEMES = ["blue", "dark", "light"] as const;
+export const THEMES = ["dark", "light"] as const;
 
 export type Theme = (typeof THEMES)[number];
 
-export const DEFAULT_THEME: Theme = "blue";
+export const DEFAULT_THEME: Theme = "dark";
 
 export const THEME_LABEL: Record<Theme, string> = {
-  blue: "blue",
-  dark: "black",
-  light: "white",
+  dark: "dark",
+  light: "light",
 };
 
 export function nextTheme(current: Theme): Theme {

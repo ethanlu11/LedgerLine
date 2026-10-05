@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import Link from "next/link";
-import { LampToggle } from "@/components/LampToggle";
+import { ThemeToggle } from "@/components/ThemeToggle";
 import { DEFAULT_THEME, THEME_KEY, THEMES } from "@/lib/theme";
 import { getUnassignedSummary } from "@/lib/metrics";
 import "./globals.css";
@@ -85,7 +85,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </div>
             <div className="flex shrink-0 items-center gap-5">
               <span className="hidden text-xs text-haze-400 sm:block">Mock data · no bank connection</span>
-              <LampToggle />
+              <ThemeToggle />
             </div>
           </div>
         </header>

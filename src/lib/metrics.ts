@@ -23,6 +23,42 @@ export interface Ledger {
   charges: Charge[];
 }
 
+const DAY = 86_400_000;
+const startOfDayUTC = (d: Date) => Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+
+/**
+ * Slide the whole dataset forward so its newest charge always lands on today.
+ *
+ * The seed writes dates relative to the day it runs, so a database seeded in
+ * September has nothing in October and every "this month" figure reads $0 the
+ * moment the month turns over. Rather than re-seeding on a schedule, the shift
+ * is applied in memory on read: nothing is written, the spacing between every
+ * date is untouched, and the demo can sit untouched for a year and still look
+ * current.
+ *
+ * Whole days only, so charges stay on their original time of day.
+ */
+function rebaseToToday(ledger: Ledger): Ledger {
+  if (ledger.charges.length === 0) return ledger;
+
+  const newest = ledger.charges.reduce((max, c) => (c.date > max ? c.date : max), ledger.charges[0].date);
+  const days = Math.floor((startOfDayUTC(ledger.now) - startOfDayUTC(newest)) / DAY);
+  if (days <= 0) return ledger; // already current, or seeded in the future
+
+  const shift = (d: Date) => new Date(d.getTime() + days * DAY);
+  return {
+    ...ledger,
+    // People move with their charges, or a departure date would drift out of
+    // step with the spend that follows it.
+    people: ledger.people.map((p) => ({
+      ...p,
+      startDate: shift(p.startDate),
+      departureDate: p.departureDate ? shift(p.departureDate) : null,
+    })),
+    charges: ledger.charges.map((c) => ({ ...c, date: shift(c.date) })),
+  };
+}
+
 export async function loadLedger(): Promise<Ledger> {
   const [teams, people, cards, subscriptions, charges] = await Promise.all([
     prisma.team.findMany({ orderBy: { name: "asc" } }),
@@ -31,7 +67,7 @@ export async function loadLedger(): Promise<Ledger> {
     prisma.subscription.findMany(),
     prisma.charge.findMany(),
   ]);
-  return { now: new Date(), teams, people, cards, subscriptions, charges };
+  return rebaseToToday({ now: new Date(), teams, people, cards, subscriptions, charges });
 }
 
 /** A charge nobody owns yet. */
