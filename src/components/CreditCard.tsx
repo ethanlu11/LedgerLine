@@ -54,7 +54,7 @@ const DESIGNS: Record<CardProduct, Design> = {
 export const productName = (p: CardProduct) => DESIGNS[p].name;
 
 /** The gold contact plate. */
-function Chip() {
+export function Chip() {
   return (
     <svg viewBox="0 0 34 26" className="h-[26px] w-[34px]" aria-hidden="true">
       <rect x="0.5" y="0.5" width="33" height="25" rx="4" fill="#d8b45c" />
@@ -67,7 +67,7 @@ function Chip() {
 }
 
 /** The contactless waves, drawn rotated so they read as radiating sideways. */
-function Contactless() {
+export function Contactless() {
   return (
     <svg viewBox="0 0 20 20" className="h-[18px] w-[18px]" fill="none" aria-hidden="true">
       <g stroke="currentColor" strokeWidth="1.7" strokeLinecap="round">

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { formatUSD } from "@/lib/format";
 import { CardNetworkMark, parseNetwork } from "./CardNetwork";
+import { Chip, Contactless } from "./CreditCard";
 
 /**
  * One payment card per team. The mesh is built from overlapping radial fields
@@ -99,7 +100,7 @@ export function TeamCard({
       style={{ background: "linear-gradient(160deg, rgba(255,255,255,.34), rgba(255,255,255,.04) 45%)" }}
     >
       <article
-        className={`card-face flex h-full min-h-[190px] flex-col justify-between rounded-[25px] px-5 py-4 ${ink}`}
+        className={`card-face flex h-full min-h-[210px] flex-col justify-between rounded-[25px] px-5 py-4 ${ink}`}
         style={{ ["--mesh" as string]: face.art }}
       >
         <header className="flex items-start justify-between gap-3">
@@ -119,6 +120,14 @@ export function TeamCard({
             </span>
           )}
         </header>
+
+        {/* Chip and contactless mark, where they sit on a real card. */}
+        <div className="flex items-center gap-3">
+          <Chip />
+          <span className={dim}>
+            <Contactless />
+          </span>
+        </div>
 
         <div className="flex items-end justify-between gap-3">
           <div>
