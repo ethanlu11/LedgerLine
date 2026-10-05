@@ -47,6 +47,20 @@ export default async function TeamsPage() {
         </EmptyState>
       ) : (
         <>
+          {/* The cards look like objects, not controls, so the affordance has to be
+              stated. Sits directly above them and names what a click gives you. */}
+          <div className="mb-3 flex items-center gap-2.5 text-[13px] text-haze-300">
+            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-solid/15 text-violet-glow ring-1 ring-inset ring-violet-glow/30">
+              <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
+                <path d="M6.3 2.4a1.5 1.5 0 0 1 2.1 1.4v8.0l1.7-1a2.2 2.2 0 0 1 2.9.7l2.6 4a1.5 1.5 0 0 1-.5 2.1l-2.7 1.6a1.5 1.5 0 0 1-2-.5l-4.6-7.2a3 3 0 0 1-.5-1.6V3.8c0-.6.4-1.2 1-1.4Z" />
+              </svg>
+            </span>
+            <p>
+              <span className="font-semibold text-ink-50">Open any card</span> for the people behind the
+              number — who is spending, on what, and what is still billing after they left.
+            </p>
+          </div>
+
           {/* The cards are the hero: one per team, sized so all four read at a glance. */}
           <div className="mb-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {rows.map((r, i) => (
