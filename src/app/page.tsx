@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { CategoryDonut } from "@/components/CategoryDonut";
 import { DormantSection } from "@/components/DormantSection";
 import { TeamCard } from "@/components/TeamCard";
@@ -23,8 +22,6 @@ export default async function TeamsPage() {
 
   return (
     <>
-      <Breadcrumbs items={[{ label: "Teams" }]} />
-
       <div className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
           <h1 className="text-[28px] font-extrabold leading-tight tracking-tight">Teams</h1>
