@@ -54,7 +54,7 @@ export function GuessCallout({ guess }: { guess: BestGuess | null }) {
               <span className="text-[12px] text-haze-400">{guess.owner.detail}</span>
             )}
             {departed && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-ember/10 px-2 py-0.5 text-[11px] font-semibold text-ember ring-1 ring-inset ring-ember/25">
+              <span className="inline-flex items-center gap-1 rounded-[5px] bg-ember/10 px-2 py-0.5 text-[11px] font-semibold text-ember ring-1 ring-inset ring-ember/25">
                 <WarningIcon label="" /> Has left
               </span>
             )}
@@ -62,7 +62,7 @@ export function GuessCallout({ guess }: { guess: BestGuess | null }) {
           <p className="mt-1 text-[12px] leading-relaxed text-haze-300">{guess.reason}</p>
         </div>
         <span
-          className={`shrink-0 whitespace-nowrap rounded-full px-2 py-0.5 text-[11px] font-semibold ring-1 ring-inset ${tone.pill}`}
+          className={`shrink-0 whitespace-nowrap rounded-[5px] px-2 py-0.5 text-[11px] font-semibold ring-1 ring-inset ${tone.pill}`}
         >
           {tone.label}
         </span>

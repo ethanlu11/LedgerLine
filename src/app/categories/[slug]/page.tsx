@@ -92,18 +92,18 @@ export default async function CategoryPage({
           {/* items-start so a short panel doesn't stretch to match a tall one. */}
           <div className="mb-8 grid items-start gap-4 lg:grid-cols-2">
             {!team && (
-              <section className="min-w-0 rounded-[20px] border border-ink-800 bg-ink-900 px-5 py-5">
+              <section className="min-w-0 rounded-[10px] border border-ink-800 bg-ink-900 px-5 py-5">
                 <SectionHeading>By team</SectionHeading>
                 <SpendBars slices={byTeam} />
               </section>
             )}
-            <section className="min-w-0 rounded-[20px] border border-ink-800 bg-ink-900 px-5 py-5">
+            <section className="min-w-0 rounded-[10px] border border-ink-800 bg-ink-900 px-5 py-5">
               <SectionHeading note={byVendor.length > 8 ? `Top 8 of ${byVendor.length}` : undefined}>
                 By vendor
               </SectionHeading>
               <SpendBars slices={byVendor} limit={8} color={SERIES[1]} />
             </section>
-            <section className="min-w-0 rounded-[20px] border border-ink-800 bg-ink-900 px-5 py-5 lg:col-span-2">
+            <section className="min-w-0 rounded-[10px] border border-ink-800 bg-ink-900 px-5 py-5 lg:col-span-2">
               <SectionHeading note={byPerson.length > 8 ? `Top 8 of ${byPerson.length}` : undefined}>
                 By person
               </SectionHeading>

@@ -2,7 +2,7 @@ import type { SubscriptionStatus } from "@/lib/metrics";
 import { formatDate } from "@/lib/format";
 
 const pill =
-  "inline-flex items-center whitespace-nowrap rounded-full px-2.5 py-0.5 text-[12px] font-semibold ring-1 ring-inset";
+  "inline-flex items-center whitespace-nowrap rounded-[5px] px-2.5 py-0.5 text-[12px] font-semibold ring-1 ring-inset";
 
 /** Active / Departed, derived from departureDate. */
 export function PersonStatusBadge({

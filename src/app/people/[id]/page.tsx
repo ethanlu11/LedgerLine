@@ -95,7 +95,7 @@ export default async function PersonPage({
       </StatTileGrid>
 
       {metrics.orphanedSubscriptions > 0 && (
-        <div className="mb-8 flex items-start gap-3 rounded-[20px] border border-ember/25 bg-ember/10 px-4 py-3.5 text-[14px] text-haze-300">
+        <div className="mb-8 flex items-start gap-3 rounded-[10px] border border-ember/25 bg-ember/10 px-4 py-3.5 text-[14px] text-haze-300">
           <span className="mt-0.5">
             <WarningIcon label="Warning" />
           </span>

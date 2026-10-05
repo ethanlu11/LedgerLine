@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
 import Link from "next/link";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { DEFAULT_THEME, THEME_KEY, THEMES } from "@/lib/theme";
 import { getUnassignedSummary } from "@/lib/metrics";
 import "./globals.css";
 
-const manrope = Manrope({ subsets: ["latin"], display: "swap", variable: "--font-manrope" });
+const sans = Instrument_Sans({ subsets: ["latin"], display: "swap", variable: "--font-sans" });
 
 export const metadata: Metadata = {
   title: "LedgerLine",
@@ -31,8 +31,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     // data-theme is deliberately not rendered here: the inline script below owns
     // it, and React would otherwise reassert "dark" during hydration.
-    <html lang="en" className={manrope.variable} suppressHydrationWarning>
-      <body className="min-h-screen bg-ink-950 font-[family-name:var(--font-manrope)] text-ink-50 antialiased">
+    <html lang="en" className={sans.variable} suppressHydrationWarning>
+      <body className="min-h-screen bg-ink-950 font-[family-name:var(--font-sans)] text-ink-50 antialiased">
         {/* First thing in the body so the theme is set before anything paints.
             Next strips raw <script> from a root layout's <head>, so it lives here. */}
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
@@ -68,7 +68,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
                   Review
                   {waiting > 0 && (
                     <span
-                      className="rounded-full bg-ember px-1.5 py-0.5 text-[11px] font-bold leading-none text-ink-950"
+                      className="rounded-[5px] bg-ember px-1.5 py-0.5 text-[11px] font-bold leading-none text-ink-950"
                       aria-label={`${waiting} waiting for review`}
                     >
                       {waiting}

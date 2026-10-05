@@ -25,7 +25,7 @@ export default async function ReviewPage() {
       </div>
 
       {groups.length === 0 ? (
-        <div className="rounded-[24px] border border-mint/25 bg-mint/[0.07] px-6 py-12 text-center">
+        <div className="rounded-[14px] border border-mint/25 bg-mint/[0.07] px-6 py-12 text-center">
           <p className="text-[19px] font-extrabold tracking-tight text-ink-50">Everything is assigned</p>
           <p className="mx-auto mt-2 max-w-[54ch] text-[14px] text-haze-300">
             Every charge on file belongs to a person or a team. Anything new that lands on a shared card will
@@ -60,13 +60,13 @@ export default async function ReviewPage() {
             {groups.map((g) => (
               <li
                 key={g.key}
-                className="rounded-[20px] border border-ink-800 bg-ink-900 p-4 sm:p-5"
+                className="rounded-[10px] border border-ink-800 bg-ink-900 p-4 sm:p-5"
               >
                 <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
                       <h2 className="text-[17px] font-extrabold tracking-tight text-ink-50">{g.vendor}</h2>
-                      <span className="rounded-full bg-ink-800 px-2.5 py-0.5 text-[11px] font-semibold text-haze-300 ring-1 ring-inset ring-ink-700">
+                      <span className="rounded-[5px] bg-ink-800 px-2.5 py-0.5 text-[11px] font-semibold text-haze-300 ring-1 ring-inset ring-ink-700">
                         {g.recurring ? "Monthly" : "One-off"}
                       </span>
                       <span className="text-[12px] text-haze-400">{g.category}</span>

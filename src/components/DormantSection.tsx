@@ -23,7 +23,7 @@ export function DormantSection({
     const nobodyLeft = cleanlyOffboarded === 0;
     return (
       <section className="mb-8">
-        <div className="rounded-[20px] border border-mint/20 bg-mint/[0.06] px-5 py-6">
+        <div className="rounded-[10px] border border-mint/20 bg-mint/[0.06] px-5 py-6">
           <h2 className="text-[19px] font-extrabold tracking-tight text-ink-50">
             {nobodyLeft ? "No departures" : "Nothing dormant"}
           </h2>
@@ -39,7 +39,7 @@ export function DormantSection({
 
   return (
     <section className="mb-8">
-      <div className="rounded-[24px] border border-ember/25 bg-ember/[0.07] p-5">
+      <div className="rounded-[14px] border border-ember/25 bg-ember/[0.07] p-5">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
           <div>
             <h2 className="flex items-center gap-2 text-[19px] font-extrabold tracking-tight text-ink-50">
@@ -73,7 +73,7 @@ export function DormantSection({
             <li key={d.person.id}>
               <Link
                 href={`/people/${d.person.id}`}
-                className="flex h-full flex-col gap-3 rounded-[18px] border border-ink-700 bg-ink-900 p-4 transition-colors hover:border-ember/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
+                className="flex h-full flex-col gap-3 rounded-[10px] border border-ink-700 bg-ink-900 p-4 transition-colors hover:border-ember/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-ember"
               >
                 <div className="flex items-center gap-3">
                   <Avatar name={d.person.name} photoUrl={d.person.photoUrl} size={40} />
@@ -106,7 +106,7 @@ export function DormantSection({
                   {d.vendors.map((v) => (
                     <li
                       key={v}
-                      className="rounded-full bg-ink-800 px-2.5 py-1 text-[11px] font-semibold text-haze-300 ring-1 ring-inset ring-ink-700"
+                      className="rounded-[5px] bg-ink-800 px-2.5 py-1 text-[11px] font-semibold text-haze-300 ring-1 ring-inset ring-ink-700"
                     >
                       {v}
                     </li>

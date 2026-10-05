@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 /** Raised dark surface that scrolls horizontally on narrow screens. */
 export function Panel({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`overflow-x-auto rounded-[20px] border border-ink-800 bg-ink-900 ${className}`}>
+    <div className={`overflow-x-auto rounded-[10px] border border-ink-800 bg-ink-900 ${className}`}>
       {children}
     </div>
   );
@@ -58,7 +58,7 @@ export function SectionHeading({ children, note }: { children: ReactNode; note?:
 
 export function EmptyState({ children }: { children: ReactNode }) {
   return (
-    <div className="rounded-[20px] border border-dashed border-ink-700 bg-ink-900/60 px-6 py-10 text-center text-sm text-haze-400">
+    <div className="rounded-[10px] border border-dashed border-ink-700 bg-ink-900/60 px-6 py-10 text-center text-sm text-haze-400">
       {children}
     </div>
   );
@@ -91,7 +91,7 @@ export function StatTile({
   const pct = bar ? Math.round(bar.share * 100) : 0;
 
   return (
-    <div className="rounded-[20px] border border-ink-800 bg-ink-900 px-4 py-3.5">
+    <div className="rounded-[10px] border border-ink-800 bg-ink-900 px-4 py-3.5">
       <p className="text-[12px] font-medium text-haze-400">{label}</p>
       <p className={`mt-1 text-[22px] font-extrabold leading-tight tracking-tight tabular-nums ${valueTone}`}>
         {value}

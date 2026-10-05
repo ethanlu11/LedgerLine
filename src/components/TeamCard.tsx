@@ -62,6 +62,7 @@ export function TeamCard({
   share,
   shareLabel,
   flagged,
+  action,
 }: {
   href: string;
   name: string;
@@ -75,6 +76,8 @@ export function TeamCard({
   shareLabel?: string;
   /** Shown when the team is leaking money on departed people. */
   flagged?: string;
+  /** Footer call to action. Omit where the card links to the page you are on. */
+  action?: string;
 }) {
   const pct = Math.round((share ?? 0) * 100);
   const face = teamFace(index);
@@ -91,31 +94,43 @@ export function TeamCard({
     ? "bg-black/25 text-white ring-white/25"
     : "bg-[#0b1220]/12 text-[#0b1220] ring-[#0b1220]/20";
   const rail = light ? "bg-black/25" : "bg-[#0b1220]/15";
+  const footer = light
+    ? "border-white/20 bg-black/25 group-hover:bg-black/35"
+    : "border-[#0b1220]/15 bg-[#0b1220]/[0.08] group-hover:bg-[#0b1220]/15";
   const railFill = light ? "bg-white/90" : "bg-[#0b1220]/75";
 
   return (
     <Link
       href={href}
-      className="group block rounded-[26px] p-px focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
-      style={{ background: "linear-gradient(160deg, rgba(255,255,255,.34), rgba(255,255,255,.04) 45%)" }}
+      className="group block rounded-[15px] p-px transition-transform duration-150 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-glow"
+      style={{
+        background:
+          "linear-gradient(160deg, rgba(255,255,255,.34), rgba(255,255,255,.04) 45%)",
+      }}
     >
       <article
-        className={`card-face flex h-full min-h-[210px] flex-col justify-between rounded-[25px] px-5 py-4 ${ink}`}
+        className={`card-face flex h-full flex-col justify-between overflow-hidden rounded-[14px] px-5 pt-4 ${ink} ${action ? "min-h-[252px] pb-0" : "min-h-[210px] pb-4"}`}
         style={{ ["--mesh" as string]: face.art }}
       >
         <header className="flex items-start justify-between gap-3">
           <div>
-            <h3 className="text-[17px] font-extrabold leading-tight tracking-tight">{name}</h3>
+            <h3 className="text-[17px] font-extrabold leading-tight tracking-tight">
+              {name}
+            </h3>
             <p className={`mt-0.5 text-[11px] font-medium ${dim}`}>
               {last4 ? `Team card •••• ${last4}` : "Team card"}
             </p>
           </div>
           {flagged ? (
-            <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ring-inset ${chipFlag}`}>
+            <span
+              className={`whitespace-nowrap rounded-[5px] px-2.5 py-1 text-[11px] font-semibold ring-1 ring-inset ${chipFlag}`}
+            >
               {flagged}
             </span>
           ) : (
-            <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-[11px] font-semibold ring-1 ring-inset ${chip}`}>
+            <span
+              className={`whitespace-nowrap rounded-[5px] px-2.5 py-1 text-[11px] font-semibold ring-1 ring-inset ${chip}`}
+            >
               Active
             </span>
           )}
@@ -134,7 +149,9 @@ export function TeamCard({
             <p className="text-[28px] font-extrabold leading-none tracking-tight tabular-nums">
               {formatUSD(amountCents)}
             </p>
-            <p className={`mt-1 text-[11px] font-medium ${dim}`}>{amountLabel}</p>
+            <p className={`mt-1 text-[11px] font-medium ${dim}`}>
+              {amountLabel}
+            </p>
           </div>
           {network && (
             <span className="shrink-0 pb-0.5">
@@ -149,9 +166,38 @@ export function TeamCard({
               <span className={dimmer}>{shareLabel}</span>
               <span className="font-semibold tabular-nums">{pct}%</span>
             </div>
-            <div className={`mt-1.5 h-1.5 overflow-hidden rounded-full ${rail}`}>
-              <div className={`h-full rounded-full ${railFill}`} style={{ width: `${Math.max(pct, 2)}%` }} />
+            <div
+              className={`mt-1.5 h-1.5 overflow-hidden rounded-full ${rail}`}
+            >
+              <div
+                className={`h-full rounded-full ${railFill}`}
+                style={{ width: `${Math.max(pct, 2)}%` }}
+              />
             </div>
+          </div>
+        )}
+
+        {/* The one unambiguous "this is a button" on an object that otherwise
+            reads as a picture of a credit card. */}
+        {action && (
+          <div
+            className={`-mx-5 mt-4 flex items-center justify-between border-t px-5 py-2.5 text-[12px] font-bold tracking-tight transition-colors ${footer}`}
+          >
+            <span>{action}</span>
+            <svg
+              viewBox="0 0 16 16"
+              className="h-[14px] w-[14px] transition-transform duration-150 group-hover:translate-x-1"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M3 8h9M8.5 4l4 4-4 4"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
         )}
       </article>

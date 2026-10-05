@@ -2,21 +2,38 @@ import Link from "next/link";
 import { CategoryDonut } from "@/components/CategoryDonut";
 import { DormantSection } from "@/components/DormantSection";
 import { TeamCard } from "@/components/TeamCard";
-import { EmptyState, Panel, SectionHeading, StatTile, StatTileGrid, Td, Th } from "@/components/ui";
+import {
+  EmptyState,
+  Panel,
+  SectionHeading,
+  StatTile,
+  StatTileGrid,
+  Td,
+  Th,
+} from "@/components/ui";
 import { formatMonthYear, formatUSD, formatDate, plural } from "@/lib/format";
 import { getOverview } from "@/lib/metrics";
 
 export const dynamic = "force-dynamic";
 
 export default async function TeamsPage() {
-  const { now, rows, companyCategories, companyAllTimeCents, chargeCount, dormant, unassigned } =
-    await getOverview();
+  const {
+    now,
+    rows,
+    companyCategories,
+    companyAllTimeCents,
+    chargeCount,
+    dormant,
+    unassigned,
+  } = await getOverview();
 
-  const total = (pick: (r: (typeof rows)[number]) => number) => rows.reduce((t, r) => t + pick(r), 0);
+  const total = (pick: (r: (typeof rows)[number]) => number) =>
+    rows.reduce((t, r) => t + pick(r), 0);
   const monthTotal = total((r) => r.spendThisMonthCents);
   // Company figures count unassigned spend too — it left the bank either way.
   const companyMonth = monthTotal + unassigned.thisMonthCents;
-  const companyAllTime = total((r) => r.spendAllTimeCents) + unassigned.allTimeCents;
+  const companyAllTime =
+    total((r) => r.spendAllTimeCents) + unassigned.allTimeCents;
   const orphanedSpend = total((r) => r.orphanedSpendCents);
   const orphanedSubs = total((r) => r.orphanedSubscriptions);
 
@@ -24,9 +41,12 @@ export default async function TeamsPage() {
     <>
       <div className="mb-5 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
         <div>
-          <h1 className="text-[28px] font-extrabold leading-tight tracking-tight">Teams</h1>
+          <h1 className="text-[28px] font-extrabold leading-tight tracking-tight">
+            Teams
+          </h1>
           <p className="mt-1 text-[13px] text-haze-400">
-            Four cards, four budgets. Spend as of {formatDate(now)}, with {formatMonthYear(now)} to date.
+            Four cards, four budgets. Spend as of {formatDate(now)}, with{" "}
+            {formatMonthYear(now)} to date.
           </p>
         </div>
         <p className="text-[13px] text-haze-400">
@@ -39,23 +59,25 @@ export default async function TeamsPage() {
 
       {rows.length === 0 ? (
         <EmptyState>
-          No data yet. Run <code className="rounded bg-ink-800 px-1.5 py-0.5 text-ink-50">npm run seed</code> and
-          refresh.
+          No data yet. Run{" "}
+          <code className="rounded bg-ink-800 px-1.5 py-0.5 text-ink-50">
+            npm run seed
+          </code>{" "}
+          and refresh.
         </EmptyState>
       ) : (
         <>
-          {/* The cards look like objects, not controls, so the affordance has to be
-              stated. Sits directly above them and names what a click gives you. */}
-          <div className="mb-3 flex items-center gap-2.5 text-[13px] text-haze-300">
-            <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent-solid/15 text-violet-glow ring-1 ring-inset ring-violet-glow/30">
-              <svg viewBox="0 0 20 20" className="h-3.5 w-3.5" fill="currentColor" aria-hidden="true">
-                <path d="M6.3 2.4a1.5 1.5 0 0 1 2.1 1.4v8.0l1.7-1a2.2 2.2 0 0 1 2.9.7l2.6 4a1.5 1.5 0 0 1-.5 2.1l-2.7 1.6a1.5 1.5 0 0 1-2-.5l-4.6-7.2a3 3 0 0 1-.5-1.6V3.8c0-.6.4-1.2 1-1.4Z" />
-              </svg>
-            </span>
-            <p>
-              <span className="font-semibold text-ink-50">Open any card</span> for the people behind the
-              number — who is spending, on what, and what is still billing after they left.
+          {/* Stated plainly and sized to be read, next to a rule rather than
+              inside a pill — the cards themselves carry the arrow. */}
+          <div className="mb-4 flex items-center gap-3">
+            <p className="text-[15px] text-haze-300">
+              <span className="font-semibold text-ink-50">
+                Select a team card
+              </span>{" "}
+              to see who spent it, on what, and what is still billing after they
+              left.
             </p>
+            <span aria-hidden="true" className="h-px flex-1 bg-ink-800" />
           </div>
 
           {/* The cards are the hero: one per team, sized so all four read at a glance. */}
@@ -72,8 +94,11 @@ export default async function TeamsPage() {
                 index={i}
                 share={r.monthShare}
                 shareLabel="Share of company spend"
+                action="View breakdown"
                 flagged={
-                  r.orphanedSpendCents > 0 ? `${formatUSD(r.orphanedSpendCents)} orphaned` : undefined
+                  r.orphanedSpendCents > 0
+                    ? `${formatUSD(r.orphanedSpendCents)} orphaned`
+                    : undefined
                 }
               />
             ))}
@@ -82,13 +107,15 @@ export default async function TeamsPage() {
           {unassigned.chargeCount > 0 && (
             <Link
               href="/review"
-              className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-[20px] border border-violet-glow/30 bg-violet-glow/10 px-5 py-4 transition-colors hover:border-violet-glow/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-glow"
+              className="mb-8 flex flex-wrap items-center justify-between gap-x-4 gap-y-2 rounded-[10px] border border-violet-glow/30 bg-violet-glow/10 px-5 py-4 transition-colors hover:border-violet-glow/60 focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-glow"
             >
               <p className="text-[14px] text-haze-300">
                 <span className="font-bold text-ink-50">
-                  {formatUSD(unassigned.allTimeCents)} is sitting on shared cards
+                  {formatUSD(unassigned.allTimeCents)} is sitting on shared
+                  cards
                 </span>{" "}
-                with nobody attached — {plural(unassigned.chargeCount, "charge")} in{" "}
+                with nobody attached —{" "}
+                {plural(unassigned.chargeCount, "charge")} in{" "}
                 {plural(unassigned.groupCount, "group")}.
               </p>
               <span className="whitespace-nowrap rounded-xl bg-accent-solid px-3.5 py-1.5 text-[13px] font-bold text-accent-ink">
@@ -100,8 +127,14 @@ export default async function TeamsPage() {
           <DormantSection roster={dormant} scope="the company" />
 
           <StatTileGrid className="mb-8">
-            <StatTile label="Spend this month" value={formatUSD(companyMonth)} />
-            <StatTile label="Spend all time" value={formatUSD(companyAllTime)} />
+            <StatTile
+              label="Spend this month"
+              value={formatUSD(companyMonth)}
+            />
+            <StatTile
+              label="Spend all time"
+              value={formatUSD(companyAllTime)}
+            />
             <StatTile
               label="People"
               value={total((r) => r.activeHeadcount)}
@@ -111,13 +144,19 @@ export default async function TeamsPage() {
               label="Orphaned spend"
               value={formatUSD(orphanedSpend)}
               tone={orphanedSpend > 0 ? "warning" : "default"}
-              sub={orphanedSpend > 0 ? plural(orphanedSubs, "subscription") : "Nothing leaking"}
+              sub={
+                orphanedSpend > 0
+                  ? plural(orphanedSubs, "subscription")
+                  : "Nothing leaking"
+              }
             />
           </StatTileGrid>
 
           <section className="mb-8">
-            <SectionHeading note="Every charge, all time">Where the money goes</SectionHeading>
-            <div className="rounded-[20px] border border-ink-800 bg-ink-900 px-5 py-6">
+            <SectionHeading note="Every charge, all time">
+              Where the money goes
+            </SectionHeading>
+            <div className="rounded-[10px] border border-ink-800 bg-ink-900 px-5 py-6">
               <CategoryDonut
                 slices={companyCategories}
                 totalCents={companyAllTimeCents}
@@ -141,13 +180,21 @@ export default async function TeamsPage() {
               </thead>
               <tbody className="divide-y divide-ink-800">
                 {rows.map((r) => (
-                  <tr key={r.team.id} className="transition-colors hover:bg-ink-800/40">
+                  <tr
+                    key={r.team.id}
+                    className="transition-colors hover:bg-ink-800/40"
+                  >
                     <Td>
-                      <Link href={`/teams/${r.team.id}`} className="font-bold text-ink-50 hover:underline">
+                      <Link
+                        href={`/teams/${r.team.id}`}
+                        className="font-bold text-ink-50 hover:underline"
+                      >
                         {r.team.name}
                       </Link>
                       {r.cardLast4 && (
-                        <span className="ml-2 text-[12px] tabular-nums text-haze-400">···· {r.cardLast4}</span>
+                        <span className="ml-2 text-[12px] tabular-nums text-haze-400">
+                          ···· {r.cardLast4}
+                        </span>
                       )}
                     </Td>
                     <Td right>{formatUSD(r.spendThisMonthCents)}</Td>
@@ -155,13 +202,21 @@ export default async function TeamsPage() {
                     <Td right>
                       {r.activeHeadcount}
                       <span className="text-ink-600"> / </span>
-                      <span className={r.departedHeadcount > 0 ? "" : "text-ink-600"}>{r.departedHeadcount}</span>
+                      <span
+                        className={
+                          r.departedHeadcount > 0 ? "" : "text-ink-600"
+                        }
+                      >
+                        {r.departedHeadcount}
+                      </span>
                     </Td>
                     <Td right>{r.activeSubscriptions}</Td>
                     <Td right>
                       {r.orphanedSpendCents > 0 ? (
                         <>
-                          <span className="font-semibold text-ember">{formatUSD(r.orphanedSpendCents)}</span>
+                          <span className="font-semibold text-ember">
+                            {formatUSD(r.orphanedSpendCents)}
+                          </span>
                           <div className="text-[12px] text-haze-400">
                             {plural(r.orphanedSubscriptions, "subscription")}
                           </div>
@@ -179,10 +234,15 @@ export default async function TeamsPage() {
                 {unassigned.chargeCount > 0 && (
                   <tr className="font-normal">
                     <Td>
-                      <Link href="/review" className="font-semibold text-haze-300 hover:text-ink-50">
+                      <Link
+                        href="/review"
+                        className="font-semibold text-haze-300 hover:text-ink-50"
+                      >
                         Unassigned
                       </Link>
-                      <span className="ml-2 text-[12px] text-haze-400">needs review</span>
+                      <span className="ml-2 text-[12px] text-haze-400">
+                        needs review
+                      </span>
                     </Td>
                     <Td right className="text-haze-300">
                       {formatUSD(unassigned.thisMonthCents)}
@@ -219,12 +279,12 @@ export default async function TeamsPage() {
             </table>
           </Panel>
           <p className="mt-3 max-w-[70ch] text-[12px] text-haze-400">
-            A subscription counts as live when it was charged in the last 35 days. Orphaned spend is what kept being
-            charged after someone left.
+            A subscription counts as live when it was charged in the last 35
+            days. Orphaned spend is what kept being charged after someone left.
           </p>
 
           {/* Closing band. The mascot is detailed, so it gets room to actually read. */}
-          <section className="mt-10 flex flex-col items-center gap-5 rounded-[24px] border border-ink-800 bg-ink-900 px-6 py-8 text-center sm:flex-row sm:text-left">
+          <section className="mt-10 flex flex-col items-center gap-5 rounded-[14px] border border-ink-800 bg-ink-900 px-6 py-8 text-center sm:flex-row sm:text-left">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/logo-mark.png"
@@ -234,11 +294,14 @@ export default async function TeamsPage() {
               className="logo-mark -my-4 h-[132px] w-[132px] shrink-0"
             />
             <div className="min-w-0">
-              <p className="text-[20px] font-extrabold tracking-tight text-ink-50">LedgerLine</p>
+              <p className="text-[20px] font-extrabold tracking-tight text-ink-50">
+                LedgerLine
+              </p>
               <p className="mt-1 max-w-[62ch] text-[13px] text-haze-300">
-                Every figure here is added up from {chargeCount.toLocaleString("en-US")} individual charges — no
-                stored totals, no estimates. Follow a team card down to a person, and down to the subscription
-                still billing them.
+                Every figure here is added up from{" "}
+                {chargeCount.toLocaleString("en-US")} individual charges — no
+                stored totals, no estimates. Follow a team card down to a
+                person, and down to the subscription still billing them.
               </p>
               <p className="mt-2 text-[12px] text-haze-400">
                 Seeded demo data. Nothing is connected to a real bank.

@@ -37,7 +37,7 @@ export function StatusFilter({
             role="tab"
             aria-selected={selected}
             href={tab.value === "all" ? basePath : `${basePath}?status=${tab.value}`}
-            className={`rounded-full px-3.5 py-1 font-semibold transition-colors ${
+            className={`rounded-[5px] px-3.5 py-1 font-semibold transition-colors ${
               selected ? "bg-ink-50 text-ink-950" : "text-haze-400 hover:text-ink-50"
             }`}
           >

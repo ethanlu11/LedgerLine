@@ -35,7 +35,7 @@ export function TransactionsSection({
       <form
         method="get"
         action={`/people/${personId}#transactions`}
-        className="mb-3 flex flex-wrap items-end gap-3 rounded-[20px] border border-ink-800 bg-ink-900 p-3 text-sm"
+        className="mb-3 flex flex-wrap items-end gap-3 rounded-[10px] border border-ink-800 bg-ink-900 p-3 text-sm"
       >
         <label className="flex flex-col gap-1 text-[12px] font-medium text-haze-400">
           Vendor

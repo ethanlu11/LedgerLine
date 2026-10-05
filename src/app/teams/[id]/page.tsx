@@ -75,7 +75,7 @@ export default async function TeamPage({
           shareLabel="Share of company spend"
           flagged={orphanedSpend > 0 ? `${formatUSD(orphanedSpend)} orphaned` : undefined}
         />
-        <div className="rounded-[20px] border border-ink-800 bg-ink-900 px-5 py-6">
+        <div className="rounded-[10px] border border-ink-800 bg-ink-900 px-5 py-6">
           <CategoryDonut
             slices={categories}
             totalCents={allTimeTotal}
