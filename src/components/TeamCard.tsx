@@ -8,23 +8,40 @@ import { CardNetworkMark, parseNetwork } from "./CardNetwork";
  * their soft foil look.
  */
 const FACES = [
-  // A range within one blue family rather than four unrelated hues, so the set
-  // reads as one issuer's cards. Each ink is checked at the END OF THE RAMP
-  // where it has least to work with; worst case across all four is 5.17:1.
+  // Premium card finishes: brushed platinum, graphite, navy and forest. The
+  // fine repeating gradient is the brushed-metal striation; the broad radial is
+  // the sheen rolling across the face. Inks are checked at the end of each ramp
+  // where they have least to work with — worst case across the four is 8.23:1.
   {
-    art: "radial-gradient(120% 130% at 12% 8%, #ffffff 0%, transparent 60%), linear-gradient(145deg, #eef4ff 0%, #c9dcff 100%)",
+    name: "Platinum",
+    art:
+      "repeating-linear-gradient(104deg, rgba(255,255,255,.55) 0 1px, rgba(120,126,140,.16) 1px 3px)," +
+      "radial-gradient(130% 150% at 18% 0%, #ffffff 0%, transparent 58%)," +
+      "linear-gradient(142deg, #f2f3f5 0%, #d2d5db 48%, #b9bcc4 100%)",
     ink: "dark" as const,
   },
   {
-    art: "radial-gradient(120% 130% at 12% 8%, #f2f7ff 0%, transparent 60%), linear-gradient(145deg, #d7e6ff 0%, #a8c8ff 100%)",
-    ink: "dark" as const,
-  },
-  {
-    art: "radial-gradient(120% 130% at 10% 6%, #5c93ff 0%, transparent 62%), linear-gradient(145deg, #2563eb 0%, #15338f 100%)",
+    name: "Graphite",
+    art:
+      "repeating-linear-gradient(104deg, rgba(255,255,255,.07) 0 1px, rgba(0,0,0,.18) 1px 3px)," +
+      "radial-gradient(130% 150% at 16% 0%, #6b717c 0%, transparent 60%)," +
+      "linear-gradient(142deg, #4a4f58 0%, #2a2e36 52%, #1c1f26 100%)",
     ink: "light" as const,
   },
   {
-    art: "radial-gradient(120% 130% at 10% 6%, #2f5fd0 0%, transparent 62%), linear-gradient(145deg, #1e3a8a 0%, #0a1738 100%)",
+    name: "Sapphire",
+    art:
+      "repeating-linear-gradient(104deg, rgba(255,255,255,.06) 0 1px, rgba(0,0,0,.16) 1px 3px)," +
+      "radial-gradient(130% 150% at 16% 0%, #2f5fa8 0%, transparent 60%)," +
+      "linear-gradient(142deg, #1b3a6b 0%, #102a52 52%, #081a38 100%)",
+    ink: "light" as const,
+  },
+  {
+    name: "Emerald",
+    art:
+      "repeating-linear-gradient(104deg, rgba(255,255,255,.06) 0 1px, rgba(0,0,0,.16) 1px 3px)," +
+      "radial-gradient(130% 150% at 16% 0%, #2a7f5a 0%, transparent 60%)," +
+      "linear-gradient(142deg, #17543a 0%, #0e3b28 52%, #06251a 100%)",
     ink: "light" as const,
   },
 ];
